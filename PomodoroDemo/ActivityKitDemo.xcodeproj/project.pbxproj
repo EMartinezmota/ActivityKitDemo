@@ -12,21 +12,22 @@
 		DD000003000000000000001 /* PomodoroAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD000003000000000000002 /* PomodoroAttributes.swift */; };
 		DD000004000000000000001 /* PomodoroActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD000004000000000000002 /* PomodoroActivityManager.swift */; };
 		DD000005000000000000001 /* LiveActivityPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD000005000000000000002 /* LiveActivityPreviewView.swift */; };
-		DD000008000000000000001 /* MoonPhaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD000008000000000000002 /* MoonPhaseService.swift */; };
 		DD000006000000000000001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD000006000000000000002 /* Assets.xcassets */; };
 		DD000007000000000000001 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD000007000000000000002 /* Preview Assets.xcassets */; };
+		DD000008000000000000001 /* MoonPhaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD000008000000000000002 /* MoonPhaseService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		DD00000A000000000000002 /* ActivityKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ActivityKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		56F4D61F2F6CA9B20074DB1D /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		DD000001000000000000002 /* PomodoroApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroApp.swift; sourceTree = "<group>"; };
 		DD000002000000000000002 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		DD000003000000000000002 /* PomodoroAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroAttributes.swift; sourceTree = "<group>"; };
 		DD000004000000000000002 /* PomodoroActivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroActivityManager.swift; sourceTree = "<group>"; };
 		DD000005000000000000002 /* LiveActivityPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivityPreviewView.swift; sourceTree = "<group>"; };
-		DD000008000000000000002 /* MoonPhaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoonPhaseService.swift; sourceTree = "<group>"; };
 		DD000006000000000000002 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DD000007000000000000002 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		DD000008000000000000002 /* MoonPhaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoonPhaseService.swift; sourceTree = "<group>"; };
+		DD00000A000000000000002 /* ActivityKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ActivityKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,17 +44,10 @@
 		DD00000C000000000000001 = {
 			isa = PBXGroup;
 			children = (
+				56F4D61F2F6CA9B20074DB1D /* .gitignore */,
 				DD00000D000000000000001 /* ActivityKitDemo */,
 				DD00000E000000000000001 /* Products */,
 			);
-			sourceTree = "<group>";
-		};
-		DD00000E000000000000001 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				DD00000A000000000000002 /* ActivityKitDemo.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		DD00000D000000000000001 /* ActivityKitDemo */ = {
@@ -69,6 +63,14 @@
 				DD00000F000000000000001 /* Preview Content */,
 			);
 			path = ActivityKitDemo;
+			sourceTree = "<group>";
+		};
+		DD00000E000000000000001 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DD00000A000000000000002 /* ActivityKitDemo.app */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		DD00000F000000000000001 /* Preview Content */ = {
@@ -236,7 +238,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ActivityKitDemo/Preview Content\"";
-				DEVELOPMENT_TEAM = F9ARV6G828;
+				DEVELOPMENT_TEAM = 73PG4AKG9K;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
@@ -250,7 +252,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = samjacobs.csumb.ActivityKitDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = emartinezmota.csumb.ActivityKitDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -266,7 +268,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ActivityKitDemo/Preview Content\"";
-				DEVELOPMENT_TEAM = F9ARV6G828;
+				DEVELOPMENT_TEAM = 73PG4AKG9K;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
@@ -280,7 +282,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = samjacobs.csumb.ActivityKitDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = emartinezmota.csumb.ActivityKitDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -291,20 +293,20 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		DD000015000000000000001 /* Build configuration list for PBXProject "ActivityKitDemo" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				DD000016000000000000001 /* Debug */,
-				DD000017000000000000001 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		DD000011000000000000001 /* Build configuration list for PBXNativeTarget "ActivityKitDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DD000018000000000000001 /* Debug */,
 				DD000019000000000000001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DD000015000000000000001 /* Build configuration list for PBXProject "ActivityKitDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DD000016000000000000001 /* Debug */,
+				DD000017000000000000001 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
