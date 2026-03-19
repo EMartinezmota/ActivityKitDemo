@@ -15,7 +15,34 @@
 		DD000006000000000000001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD000006000000000000002 /* Assets.xcassets */; };
 		DD000007000000000000001 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD000007000000000000002 /* Preview Assets.xcassets */; };
 		DD000008000000000000001 /* MoonPhaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD000008000000000000002 /* MoonPhaseService.swift */; };
+		EE100001000000000000001 /* PomodoroLiveActivityWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE200002000000000000002 /* PomodoroLiveActivityWidget.swift */; };
+		EE100002000000000000001 /* PomodoroWidgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE200003000000000000002 /* PomodoroWidgets.swift */; };
+		EE100003000000000000001 /* PomodoroAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD000003000000000000002 /* PomodoroAttributes.swift */; };
+		EE100004000000000000001 /* PomodoroWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = EE200005000000000000002 /* PomodoroWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		EE800001000000000000001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DD000014000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EE500001000000000000001;
+			remoteInfo = PomodoroWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		EE700003000000000000001 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				EE100004000000000000001 /* PomodoroWidgetExtension.appex in Embed App Extensions */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		56F4D61F2F6CA9B20074DB1D /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
@@ -28,10 +55,21 @@
 		DD000007000000000000002 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		DD000008000000000000002 /* MoonPhaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoonPhaseService.swift; sourceTree = "<group>"; };
 		DD00000A000000000000002 /* ActivityKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ActivityKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE200002000000000000002 /* PomodoroLiveActivityWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroLiveActivityWidget.swift; sourceTree = "<group>"; };
+		EE200003000000000000002 /* PomodoroWidgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroWidgets.swift; sourceTree = "<group>"; };
+		EE200004000000000000002 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EE200005000000000000002 /* PomodoroWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PomodoroWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		DD00000B000000000000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE300001000000000000001 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -46,6 +84,7 @@
 			children = (
 				56F4D61F2F6CA9B20074DB1D /* .gitignore */,
 				DD00000D000000000000001 /* ActivityKitDemo */,
+				EE400001000000000000001 /* PomodoroWidgetExtension */,
 				DD00000E000000000000001 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -69,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				DD00000A000000000000002 /* ActivityKitDemo.app */,
+				EE200005000000000000002 /* PomodoroWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -81,6 +121,16 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		EE400001000000000000001 /* PomodoroWidgetExtension */ = {
+			isa = PBXGroup;
+			children = (
+				EE200003000000000000002 /* PomodoroWidgets.swift */,
+				EE200002000000000000002 /* PomodoroLiveActivityWidget.swift */,
+				EE200004000000000000002 /* Info.plist */,
+			);
+			path = PomodoroWidgetExtension;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -91,15 +141,34 @@
 				DD000012000000000000001 /* Sources */,
 				DD00000B000000000000001 /* Frameworks */,
 				DD000013000000000000001 /* Resources */,
+				EE700003000000000000001 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				EE800002000000000000001 /* PBXTargetDependency */,
 			);
 			name = ActivityKitDemo;
 			productName = ActivityKitDemo;
 			productReference = DD00000A000000000000002 /* ActivityKitDemo.app */;
 			productType = "com.apple.product-type.application";
+		};
+		EE500001000000000000001 /* PomodoroWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EE600003000000000000001 /* Build configuration list for PBXNativeTarget "PomodoroWidgetExtension" */;
+			buildPhases = (
+				EE700001000000000000001 /* Sources */,
+				EE300001000000000000001 /* Frameworks */,
+				EE700002000000000000001 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PomodoroWidgetExtension;
+			productName = PomodoroWidgetExtension;
+			productReference = EE200005000000000000002 /* PomodoroWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -112,6 +181,9 @@
 				LastUpgradeCheck = 1520;
 				TargetAttributes = {
 					DD000010000000000000001 = {
+						CreatedOnToolsVersion = 15.2;
+					};
+					EE500001000000000000001 = {
 						CreatedOnToolsVersion = 15.2;
 					};
 				};
@@ -130,6 +202,7 @@
 			projectRoot = "";
 			targets = (
 				DD000010000000000000001 /* ActivityKitDemo */,
+				EE500001000000000000001 /* PomodoroWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -141,6 +214,13 @@
 			files = (
 				DD000007000000000000001 /* Preview Assets.xcassets in Resources */,
 				DD000006000000000000001 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE700002000000000000001 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -160,7 +240,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EE700001000000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE100002000000000000001 /* PomodoroWidgets.swift in Sources */,
+				EE100001000000000000001 /* PomodoroLiveActivityWidget.swift in Sources */,
+				EE100003000000000000001 /* PomodoroAttributes.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EE800002000000000000001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EE500001000000000000001 /* PomodoroWidgetExtension */;
+			targetProxy = EE800001000000000000001 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		DD000016000000000000001 /* Debug */ = {
@@ -290,6 +388,56 @@
 			};
 			name = Release;
 		};
+		EE600001000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 73PG4AKG9K;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = PomodoroWidgetExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = emartinezmota.csumb.ActivityKitDemo.PomodoroWidgetExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		EE600002000000000000001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 73PG4AKG9K;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = PomodoroWidgetExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = emartinezmota.csumb.ActivityKitDemo.PomodoroWidgetExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -307,6 +455,15 @@
 			buildConfigurations = (
 				DD000016000000000000001 /* Debug */,
 				DD000017000000000000001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EE600003000000000000001 /* Build configuration list for PBXNativeTarget "PomodoroWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE600001000000000000001 /* Debug */,
+				EE600002000000000000001 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
