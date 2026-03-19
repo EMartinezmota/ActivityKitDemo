@@ -2,6 +2,8 @@ import SwiftUI
 import ActivityKit
 
 struct ContentView: View {
+    @Environment(\.scenePhase) private var scenePhase
+
     @StateObject private var manager = PomodoroActivityManager()
 
     @State private var phase: PomodoroAttributes.ContentState.Phase = .focus
@@ -10,13 +12,13 @@ struct ContentView: View {
     @State private var totalSessions = 4
     @State private var isRunning = false
     @State private var timer: Timer?
-    @State private var activitiesSupported = false
     @State private var moonPhaseName = "Loading..."
     @State private var moonEmoji = "🌙"
 
-    var totalSeconds: Int { phase.durationSeconds }
+    private var totalSeconds: Int { phase.durationSeconds }
 
-    var currentState: PomodoroAttributes.ContentState {
+    /// The exact state we send to ActivityKit and render in the in-app preview.
+    private var currentState: PomodoroAttributes.ContentState {
         PomodoroAttributes.ContentState(
             phase: phase,
             secondsRemaining: secondsRemaining,
@@ -28,7 +30,7 @@ struct ContentView: View {
         )
     }
 
-    var phaseColor: Color {
+    private var phaseColor: Color {
         switch phase {
         case .focus: return .red
         case .shortBreak: return .green
@@ -53,7 +55,6 @@ struct ContentView: View {
             }
             .navigationTitle("Pomodoro Demo")
             .onAppear {
-                activitiesSupported = ActivityAuthorizationInfo().areActivitiesEnabled
                 fetchMoonPhase { info in
                     DispatchQueue.main.async {
                         moonPhaseName = info.name
@@ -61,24 +62,34 @@ struct ContentView: View {
                     }
                 }
             }
+            .onDisappear {
+                pauseTimer()
+            }
+            .onChange(of: scenePhase) { _, newValue in
+                // Timers are not reliable in background. We pause and keep the latest state synced.
+                if newValue != .active {
+                    pauseTimer()
+                    syncActivity()
+                }
+            }
         }
     }
 
-    var supportBanner: some View {
+    private var supportBanner: some View {
         HStack {
-            Image(systemName: activitiesSupported ? "checkmark.circle.fill" : "exclamationmark.triangle.fill")
-                .foregroundStyle(activitiesSupported ? .green : .orange)
-            Text(activitiesSupported ? "Live Activities enabled" : "Live Activities unavailable on simulator — preview shown below")
+            Image(systemName: manager.canStartActivities ? "checkmark.circle.fill" : "exclamationmark.triangle.fill")
+                .foregroundStyle(manager.canStartActivities ? .green : .orange)
+            Text(manager.canStartActivities ? "Live Activities enabled" : "Live Activities unavailable on this device/settings")
                 .font(.caption)
                 .fixedSize(horizontal: false, vertical: true)
         }
         .padding(10)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(activitiesSupported ? Color.green.opacity(0.1) : Color.orange.opacity(0.1))
+        .background(manager.canStartActivities ? Color.green.opacity(0.1) : Color.orange.opacity(0.1))
         .clipShape(RoundedRectangle(cornerRadius: 10))
     }
 
-    var timerCard: some View {
+    private var timerCard: some View {
         VStack(spacing: 16) {
             HStack(spacing: 8) {
                 Image(systemName: phase.systemImage)
@@ -114,7 +125,7 @@ struct ContentView: View {
         .clipShape(RoundedRectangle(cornerRadius: 14))
     }
 
-    var sessionDots: some View {
+    private var sessionDots: some View {
         HStack(spacing: 6) {
             ForEach(1...totalSessions, id: \.self) { i in
                 if i <= completedSessions {
@@ -128,7 +139,7 @@ struct ContentView: View {
         }
     }
 
-    var progressBar: some View {
+    private var progressBar: some View {
         GeometryReader { geo in
             ZStack(alignment: .leading) {
                 RoundedRectangle(cornerRadius: 6)
@@ -143,12 +154,12 @@ struct ContentView: View {
         .frame(height: 10)
     }
 
-    var phaseControls: some View {
+    private var phaseControls: some View {
         VStack(alignment: .leading, spacing: 10) {
             Text("Manual Controls")
                 .font(.headline)
 
-            Text("Manually advance the phase or scrub time to show different states in the Live Activity preview.")
+            Text("Manually advance phase or scrub time to test realistic Live Activity states.")
                 .font(.caption)
                 .foregroundStyle(.secondary)
 
@@ -207,7 +218,7 @@ struct ContentView: View {
         .clipShape(RoundedRectangle(cornerRadius: 14))
     }
 
-    func phaseButton(_ p: PomodoroAttributes.ContentState.Phase) -> some View {
+    private func phaseButton(_ p: PomodoroAttributes.ContentState.Phase) -> some View {
         let selected = phase == p
         return Button {
             switchPhase(to: p)
@@ -225,7 +236,7 @@ struct ContentView: View {
         .background(selected ? phaseColor.opacity(0.1) : Color.clear, in: RoundedRectangle(cornerRadius: 8))
     }
 
-    var activityControls: some View {
+    private var activityControls: some View {
         VStack(spacing: 10) {
             if !manager.isActivityRunning {
                 Button("Start Live Activity") {
@@ -233,9 +244,10 @@ struct ContentView: View {
                 }
                 .buttonStyle(.borderedProminent)
                 .frame(maxWidth: .infinity)
+                .disabled(!manager.canStartActivities)
             } else {
                 Button("Stop Live Activity", role: .destructive) {
-                    manager.stop()
+                    manager.stop(finalState: currentState)
                 }
                 .buttonStyle(.borderedProminent)
                 .frame(maxWidth: .infinity)
@@ -243,26 +255,26 @@ struct ContentView: View {
         }
     }
 
-    var conceptCard: some View {
+    private var conceptCard: some View {
         VStack(alignment: .leading, spacing: 14) {
             Text("How this uses ActivityKit")
                 .font(.headline)
 
             row(icon: "doc.text", color: .purple, title: "PomodoroAttributes",
-                body: "ContentState holds phase, time, session progress, and live moon phase data — everything that changes. The moon phase is fetched once on launch and stored in state.")
+                body: "ContentState holds phase, remaining time, session progress, and moon phase metadata.")
 
-            row(icon: "arrow.triangle.2.circlepath", color: .orange, title: "Continuous updates",
-                body: "Every second the timer fires, activity.update() pushes a new ContentState to the Lock Screen and Dynamic Island.")
+            row(icon: "arrow.triangle.2.circlepath", color: .orange, title: "Live updates",
+                body: "Every tick updates state in-app and pushes the same state to ActivityKit so Lock Screen/Dynamic Island stay in sync.")
 
-            row(icon: "moon.stars", color: .indigo, title: "US Navy Moon API",
-                body: "Fetches the 4 nearest primary moon phases (new, first quarter, full, last quarter) from aa.usno.navy.mil — no API key required. Falls back to arithmetic calculation if offline.")
+            row(icon: "moon.stars", color: .indigo, title: "Moon phase source",
+                body: "Reads nearest primary phases from US Navy API (no key). Falls back to local calculation when offline.")
         }
         .padding()
         .background(Color(.secondarySystemBackground))
         .clipShape(RoundedRectangle(cornerRadius: 14))
     }
 
-    func row(icon: String, color: Color, title: String, body: String) -> some View {
+    private func row(icon: String, color: Color, title: String, body: String) -> some View {
         HStack(alignment: .top, spacing: 12) {
             Image(systemName: icon)
                 .foregroundStyle(.white)
@@ -276,11 +288,15 @@ struct ContentView: View {
         }
     }
 
-    func startTimer() {
+    /// Starts the one-second timer and creates a Live Activity if needed.
+    private func startTimer() {
         isRunning = true
+
         if !manager.isActivityRunning {
             manager.start(state: currentState)
         }
+
+        timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
             if secondsRemaining > 0 {
                 secondsRemaining -= 1
@@ -291,21 +307,22 @@ struct ContentView: View {
         }
     }
 
-    func pauseTimer() {
+    private func pauseTimer() {
         isRunning = false
         timer?.invalidate()
         timer = nil
     }
 
-    func switchPhase(to newPhase: PomodoroAttributes.ContentState.Phase) {
+    private func switchPhase(to newPhase: PomodoroAttributes.ContentState.Phase) {
         pauseTimer()
         phase = newPhase
         secondsRemaining = newPhase.durationSeconds
         syncActivity()
     }
 
-    func advanceSession() {
+    private func advanceSession() {
         pauseTimer()
+
         switch phase {
         case .focus:
             completedSessions = min(completedSessions + 1, totalSessions)
@@ -320,7 +337,7 @@ struct ContentView: View {
         }
     }
 
-    func syncActivity() {
+    private func syncActivity() {
         guard manager.isActivityRunning else { return }
         manager.update(state: currentState)
     }
